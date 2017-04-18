@@ -4,7 +4,12 @@ require 'httparty'
 
 require_relative './command_line_interface'
 
+def create_state(address)
+  State.create("abbreviation" => address)
+end
+
 def parse_address(address)
+  create_state(address)
   address_url = address.split(", ").collect {|el| "#{el}%20" }.join
 end
 
@@ -12,22 +17,22 @@ def get_info_from_api(address)
   api_key = 'AIzaSyCudI68KuGNt9uF_SzvqocmCnBVo-uZkYs'
 
   response = HTTParty.get("https://www.googleapis.com/civicinfo/v2/representatives?key=#{api_key}&address=#{address}", query: {'api_key_id' => api_key }, format: :plain)
+
   info = JSON.parse(response)
   info
 end
-
 
 def all_state_officials_names(info)
   info["officials"].collect{|official| official["name"] }
 end
 
-def get_senators(info)
+def get_senators(info, address)
   indicies = info["offices"].select { |office | office["name"] == "United States Senate" }[0]["officialIndices"]
 
   #senators names
   senators = all_state_officials_names(info).select.with_index { |name, idx| (idx == indicies[0]) || (idx == indicies[1]) }
 
-  senator_hashes = get_senator_hash(senators, info)
+  senator_hashes = get_senator_hash(senators, info, address)
 
   senator_hashes.each do |senator_hash|
     Senator.create(senator_hash)
@@ -39,7 +44,7 @@ def get_senators(info)
   choice = gets.chomp
 end
 
-def get_senator_hash(senators, info)
+def get_senator_hash(senators, info, address)
   senator_hashes = []
 
   senators.each do |senator|
@@ -55,8 +60,8 @@ def get_senator_hash(senators, info)
       "Facebook" => get_facebook(new_senator),
       "Twitter" => get_twitter(new_senator),
       "YouTube" => get_youtube(new_senator),
-      "state_id" =>
-      "official_id" =>
+      "state_id" => State.find_by(abbreviation: address)
+      # "official_id" =>
     }
   end
 
@@ -105,6 +110,6 @@ end
 def show_representative_info(address)
   new_address = parse_address(address)
   info =  get_info_from_api(new_address)
-  choice = get_senators(info)
+  choice = get_senators(info, address)
   senator_hash = get_senator_api_hash(choice, info)
 end
