@@ -3,8 +3,8 @@ def welcome
 end
 
 def get_address_from_user
-  puts "Which location would you like to get information about?"
-  puts "Kindly write the address is the following format: Street#, Street Name, City, State. Include what information you can, we will figure out the rest!"
+  puts "Which state would you like to get information about?"
+  # puts "Kindly write the address is the following format: Street#, Street Name, City, State. Include what information you can, we will figure out the rest!"
 
   address = gets.chomp
 
@@ -17,6 +17,6 @@ def get_address_from_user
 end
 
 def specific_subject
-  puts "What would you specifically liek to know about #{get_address_from_user}?"
+  puts "What would you specifically like to know about #{get_address_from_user}?"
   subject_specfic = gets.chomp.downcase
 end
