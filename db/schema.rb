@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20170418173815) do
     t.string  "phones"
     t.string  "urls"
     t.string  "photoUrl"
+    t.string  "Facebook"
+    t.string  "Twitter"
+    t.string  "YouTube"
     t.integer "state_id"
     t.integer "official_id"
   end

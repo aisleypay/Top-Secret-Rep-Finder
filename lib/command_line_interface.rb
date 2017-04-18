@@ -8,6 +8,11 @@ def get_address_from_user
 
   address = gets.chomp
 
+  until address != nil
+    puts "Sorry, that's not valid try again"
+    address = gets.chomp
+  end
+
   address
 end
 

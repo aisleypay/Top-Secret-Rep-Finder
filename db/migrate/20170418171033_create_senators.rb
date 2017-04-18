@@ -7,6 +7,9 @@ class CreateSenators < ActiveRecord::Migration[5.0]
       t.string :phones
       t.string :urls
       t.string :photoUrl
+      t.string :Facebook
+      t.string :Twitter
+      t.string :YouTube
       t.integer :state_id
       t.integer :official_id
     end
