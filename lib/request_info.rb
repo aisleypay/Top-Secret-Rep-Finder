@@ -12,7 +12,7 @@ def get_info_from_api(address)
   api_key = 'AIzaSyCudI68KuGNt9uF_SzvqocmCnBVo-uZkYs'
 
   response = HTTParty.get("https://www.googleapis.com/civicinfo/v2/representatives?key=#{api_key}&address=#{address}", query: {'api_key_id' => api_key }, format: :plain)
-
+  binding.pry
   info = JSON.parse(response)
   puts info
 
