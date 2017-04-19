@@ -19,7 +19,6 @@ def get_info_from_api(address)
   response = HTTParty.get("https://www.googleapis.com/civicinfo/v2/representatives?key=#{api_key}&address=#{address}", query: {'api_key_id' => api_key }, format: :plain)
 
   info = JSON.parse(response)
-  info
 end
 
 def all_office_titles(info)
@@ -28,7 +27,6 @@ end
 
 def get_office_api_hash(title, info)
   office_hash = info["offices"].select{|off| off["name"] == title}[0]
-  office_hash
 end
 
 def get_offices(info)
@@ -38,10 +36,7 @@ def get_offices(info)
   titles.each { |title|
     new_office = get_office_api_hash(title, info)
 
-    office_hash << {
-      position: new_office["name"],
-      level: new_office["levels"]
-    }
+    office_hash << { position: new_office["name"], level: new_office["levels"] }
   }
 
   office_hash.each { |office| Office.create(office) }
@@ -51,19 +46,18 @@ def get_indicies_of_offices(info)
   info["offices"].collect { |office| office["officialIndices"] }
 end
 
-def get_official_position_title(official_index, info)
+def get_specific_office_title (official_index, info)
   indicies = get_indicies_of_offices(info)
-
   position_index = nil
 
-  indicies.each_with_index { |el, idx |
-     position_index = idx if el.include?(official_index)
-  }
+  indicies.each_with_index { |el, idx | position_index = idx if el.include?(official_index) }
+  position_index
+end
 
-  office_title =  all_office_titles(info)[position_index]
+def get_official_position_title(official_index, info)
+  office_title =  all_office_titles(info)[get_specific_office_title(official_index, info)]
 
   office_id = Office.find_by(position: office_title).id
-  office_id
 end
 
 def create_off_sen(senator_index, office_id)
@@ -78,17 +72,14 @@ def get_senators(info, address)
   indicies = info["offices"].select { |office | office["name"] == "United States Senate" }[0]["officialIndices"]
   get_offices(info)
   #senators names
-  senators = all_state_officials_names(info).select.with_index { |name, idx| (idx == indicies[0]) || (idx == indicies[1]) }
-
+  senators = all_state_officials_names(info).select.with_index { |name, idx| indicies.include?(idx) }
   senator_hashes = get_senator_hash(senators, info, address)
 
   senator_hashes.each do |senator_hash|
     new_senator = Senator.create(senator_hash)
-
-    index_of_senator = (all_state_officials_names(info)).index(senator_hash[
-      :name])
-
+    index_of_senator = (all_state_officials_names(info)).index(senator_hash[:name])
     office_id = get_official_position_title(index_of_senator, info)
+
     create_off_sen(new_senator.id, office_id)
   end
 
