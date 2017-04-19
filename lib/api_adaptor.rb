@@ -39,6 +39,7 @@ def get_offices(info)
     office_hash << { position: new_office["name"], level: new_office["levels"].to_s}
   end
   office_hash.each { |office| Office.find_or_create_by(office) }
+
 end
 
 def get_indicies_of_offices(info)
@@ -151,5 +152,5 @@ def show_representative_info(address)
   new_address = parse_address(address)
   info =  get_info_from_api(new_address)
   choice = get_senators(info, address)
-  senator_hash = get_senator_api_hash(choice, info)
+
 end

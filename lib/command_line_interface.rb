@@ -6,7 +6,7 @@ def get_address_from_user
   puts "Which state would you like to get information about?"
   # puts "Kindly write the address is the following format: Street#, Street Name, City, State. Include what information you can, we will figure out the rest!"
 
-  address = gets.chomp
+  address = gets.chomp.upcase
 
   until address != nil
     puts "Sorry, that's not valid try again"
