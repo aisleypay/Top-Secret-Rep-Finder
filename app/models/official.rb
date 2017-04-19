@@ -16,4 +16,53 @@ class Official < ActiveRecord::Base
     self.columns[1..-1].collect{ |c| c.name}
   end
 
+  def self.all_state_officials_names(api_hash)
+    api_hash["officials"].collect{|official| official["name"] }
+  end
+
+  def self.get_officials(api_hash, address)
+    indicies = Office.get_indicies_of_offices(api_hash)
+    officials = all_state_officials_names(api_hash)
+    officials_hash = get_official_hash(officials, api_hash, address)
+
+    officials_hash.each do |official_hash|
+      new_official = Official.find_or_create_by(official_hash)
+      index_of_official = (all_state_officials_names(api_hash)).index(official_hash[:name])
+      office_id = Office.get_official_id(index_of_official, api_hash)
+
+      OfficeOfficial.find_or_create_by(official_id: new_official.id, office_id: office_id)
+
+      puts "#{Office.find_by(id: office_id).position} : #{official_hash[:name]}"
+    end
+  end
+
+  def self.get_official_api_hash (official, api_hash)
+    official_hash = api_hash["officials"].select{|off| off["name"] == official }[0]
+    official_hash
+  end
+
+  def self.get_official_hash(officials, api_hash, address)
+    official_hashes = []
+
+    officials.each do |official|
+
+      next if (official == "Donald J. Trump" || official == "Mike Pence")
+      new_official = get_official_api_hash(official, api_hash)
+      official_hashes << {
+        name: official,
+        address: ApiAdaptor.parse_official_address(new_official),
+        party: ApiAdaptor.get_party(new_official),
+        phones: ApiAdaptor.get_phone_number(new_official),
+        urls: ApiAdaptor.get_url(new_official),
+        photoUrl: ApiAdaptor.get_photo_url(new_official),
+        Facebook: ApiAdaptor.get_facebook(new_official),
+        Twitter: ApiAdaptor.get_twitter(new_official),
+        YouTube: ApiAdaptor.get_youtube(new_official),
+        state_id: State.find_by(abbreviation: address).id,
+      }
+    end
+
+    official_hashes
+  end
+
 end

@@ -17,8 +17,8 @@ class CommandLineInterface
 
   def self.list_officials(info, address)
     puts "Here are your officials:\n"
-    get_offices(info)
-    get_officials(info,address)
+    Office.get_offices(info)
+    Official.get_officials(info,address)
 
     puts "Which Official would you like to know more about?\n"
     choice = gets.chomp
