@@ -28,7 +28,7 @@ def get_senators(info)
   indicies = info["offices"].select { |office | office["name"] == "United States Senate" }[0]["officialIndices"]
 
   senators = all_state_officials_names(info).select.with_index { |name, idx| (idx == indicies[0]) || (idx == indicies[1]) }
-  binding.pry
+  # binding.pry
 
   # get_senator_hash(senators[0])
   puts "Here are your senators: #{senators[0]} and #{senators[1]}"
@@ -55,7 +55,7 @@ def make_mass_assign_hash(senators, info)
   #   senator_hashes << {
   #     name: se
   #   }
-  end
+  # end
 
 
 end
