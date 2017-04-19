@@ -32,20 +32,20 @@ class ApiAdaptor
     official_hash["party"].nil? ? "N/A" : official_hash["party"]
   end
 
-  def get_official_api_hash (official, info)
+  def self.get_official_api_hash (official, info)
     official_hash = info["officials"].select{|off| off["name"] == official }[0]
     official_hash
   end
 
-  def parse_official_address(official_hash)
-    official_hash["address"][0].collect {|add, val| val }.join(" ")
+  def self.parse_official_address(official_hash)
+    official_hash["address"].nil? ? "N/A" : official_hash["address"][0].collect {|add, val| val }.join(" ")
   end
 
-  def get_party(official_hash)
+  def self.get_party(official_hash)
     official_hash["party"].nil? ? "N/A" : official_hash["party"]
   end
 
-  def get_phone_number(official_hash)
+  def self.get_phone_number(official_hash)
     official_hash["phones"].nil? ? "N/A" : official_hash["phones"][0]
   end
 
