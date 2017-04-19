@@ -12,9 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170418173815) do
 
-  create_table "officials", force: :cascade do |t|
-    t.string "name"
-    t.string "office"
+  create_table "offices", force: :cascade do |t|
+    t.string "position"
+    t.string "level"
   end
 
   create_table "senators", force: :cascade do |t|
