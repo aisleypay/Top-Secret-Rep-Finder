@@ -5,7 +5,7 @@ require 'httparty'
 require_relative './command_line_interface'
 
 def create_state(address)
-  State.create("abbreviation" => address)
+  State.find_or_create_by(abbreviation: address)
 end
 
 def parse_address(address)
@@ -33,13 +33,12 @@ def get_offices(info)
   titles = all_office_titles(info)
   office_hash = []
 
-  titles.each { |title|
+  titles.each do |title|
     new_office = get_office_api_hash(title, info)
 
-    office_hash << { position: new_office["name"], level: new_office["levels"] }
-  }
-
-  office_hash.each { |office| Office.create(office) }
+    office_hash << { position: new_office["name"], level: new_office["levels"].to_s}
+  end
+  office_hash.each { |office| Office.find_or_create_by(office) }
 end
 
 def get_indicies_of_offices(info)
@@ -61,7 +60,7 @@ def get_official_position_title(official_index, info)
 end
 
 def create_off_sen(senator_index, office_id)
-  OfficeSenator.create(senator_id: senator_index, office_id: office_id)
+  OfficeSenator.find_or_create_by(senator_id: senator_index, office_id: office_id)
 end
 
 def all_state_officials_names(info)
@@ -76,10 +75,9 @@ def get_senators(info, address)
   senator_hashes = get_senator_hash(senators, info, address)
 
   senator_hashes.each do |senator_hash|
-    new_senator = Senator.create(senator_hash)
+    new_senator = Senator.find_or_create_by(senator_hash)
     index_of_senator = (all_state_officials_names(info)).index(senator_hash[:name])
     office_id = get_official_position_title(index_of_senator, info)
-
     create_off_sen(new_senator.id, office_id)
   end
 
