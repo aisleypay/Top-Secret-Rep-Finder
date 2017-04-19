@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20170419004317) do
     t.string  "Twitter"
     t.string  "YouTube"
     t.integer "state_id"
-    t.integer "office_id"
   end
 
   create_table "states", force: :cascade do |t|

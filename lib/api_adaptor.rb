@@ -54,12 +54,16 @@ end
 def get_official_position_title(official_index, info)
   indicies = get_indicies_of_offices(info)
 
-  position_index = indicies.map.with_index { |el, idx |
-    return idx if el.include?(official_index)
+  position_index = nil
+
+  indicies.each_with_index { |el, idx |
+     position_index = idx if el.include?(official_index)
   }
 
   office_title =  all_office_titles(info)[position_index]
-  office_id = Office.find_by(position: office_title)
+
+  office_id = Office.find_by(position: office_title).id
+  office_id
 end
 
 def create_off_sen(senator_index, office_id)
@@ -86,7 +90,6 @@ def get_senators(info, address)
 
     office_id = get_official_position_title(index_of_senator, info)
     create_off_sen(new_senator.id, office_id)
-    new_senator.office_id = OfficeSenator.find_by(senator_id: new_senator.id).id
   end
 
   puts "Here are your senators: #{senators[0]} and #{senators[1]}"
