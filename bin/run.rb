@@ -5,7 +5,7 @@ require_relative '../config/environment'
 CommandLineInterface.welcome
 
 address = CommandLineInterface.get_address_from_user
-choice = show_representative_info(address)
+choice = ApiAdaptor.show_representative_information(address)
 official_info = Official.display_official_info(choice)
 puts official_info
 
@@ -21,13 +21,13 @@ until choice == 5
 
   case choice
     when 1
-      choice = show_representative_info(address)
+      choice = ApiAdaptor.show_representative_info(address)
       official_info = Official.display_official_info(choice)
       puts official_info
 
     when 2
       address = CommandLineInterface.get_address_from_user
-      choice = show_representative_info(address)
+      choice = ApiAdaptor.show_representative_information(address)
       official_info = Official.display_official_info(choice)
       puts official_info
 
