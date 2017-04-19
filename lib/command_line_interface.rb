@@ -7,14 +7,16 @@ def get_address_from_user
   # puts "Kindly write the address is the following format: Street#, Street Name, City, State. Include what information you can, we will figure out the rest!"
 
   address = gets.chomp
-    if address == nil
-      puts "Invalid"
-    else
+
+  until address != nil
+    puts "Sorry, that's not valid try again"
+    address = gets.chomp
+  end
+
   address
-    end
 end
 
-# def specific_subject
-#   puts "What would you specifically like to know about #{get_address_from_user}?"
-#   subject_specfic = gets.chomp.downcase
-# end
+def specific_subject
+  puts "What would you specifically like to know about #{get_address_from_user}?"
+  subject_specfic = gets.chomp.downcase
+end

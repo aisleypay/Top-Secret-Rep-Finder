@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418173815) do
+ActiveRecord::Schema.define(version: 20170419004317) do
 
-  create_table "officials", force: :cascade do |t|
-    t.string "name"
-    t.string "office"
+  create_table "office_senators", force: :cascade do |t|
+    t.integer "senator_id"
+    t.integer "office_id"
+  end
+
+  create_table "offices", force: :cascade do |t|
+    t.string "position"
+    t.string "level"
   end
 
   create_table "senators", force: :cascade do |t|
@@ -24,8 +29,10 @@ ActiveRecord::Schema.define(version: 20170418173815) do
     t.string  "phones"
     t.string  "urls"
     t.string  "photoUrl"
+    t.string  "Facebook"
+    t.string  "Twitter"
+    t.string  "YouTube"
     t.integer "state_id"
-    t.integer "official_id"
   end
 
   create_table "states", force: :cascade do |t|
