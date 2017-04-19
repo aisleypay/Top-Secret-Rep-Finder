@@ -60,97 +60,100 @@ def get_official_position_title(official_index, info)
   office_id = Office.find_by(position: office_title).id
 end
 
-def create_off_sen(senator_index, office_id)
-  OfficeSenator.find_or_create_by(senator_id: senator_index, office_id: office_id)
+def create_off_sen(official_index, office_id)
+  OfficeOfficial.find_or_create_by(official_id: official_index, office_id: office_id)
 end
 
 def all_state_officials_names(info)
   info["officials"].collect{|official| official["name"] }
 end
 
-def get_senators(info, address)
-  indicies = info["offices"].select { |office | office["name"] == "United States Senate" }[0]["officialIndices"]
-  get_offices(info)
-  #senators names
-  senators = all_state_officials_names(info).select.with_index { |name, idx| indicies.include?(idx) }
-  senator_hashes = get_senator_hash(senators, info, address)
-
-  senator_hashes.each do |senator_hash|
-    new_senator = Senator.find_or_create_by(senator_hash)
-    index_of_senator = (all_state_officials_names(info)).index(senator_hash[:name])
-    office_id = get_official_position_title(index_of_senator, info)
-    create_off_sen(new_senator.id, office_id)
-  end
-
-  puts "Here are your senators: #{senators[0]} and #{senators[1]}"
-  puts "Which Senator would you like to know more about?"
-  #choice is string of senator name
-  choice = gets.chomp
+def get_indicies_of_offices(info)
+  info["offices"].collect { |office| office["officialIndices"] }
 end
 
-def get_senator_hash(senators, info, address)
-  senator_hashes = []
+def get_officials(info, address)
+  indicies = get_indicies_of_offices(info)
+  officials = all_state_officials_names(info)
+  officials_hash = get_official_hash(officials, info, address)
 
-  senators.each do |senator|
-    new_senator = get_senator_api_hash(senator, info)
-    senator_hashes << {
-      name: senator,
-      address: parse_official_address(new_senator),
-      party: get_party(new_senator),
-      phones: get_phone_number(new_senator),
-      urls: get_url(new_senator),
-      photoUrl: get_photo_url(new_senator),
-      Facebook: get_facebook(new_senator),
-      Twitter: get_twitter(new_senator),
-      YouTube: get_youtube(new_senator),
+  officials_hash.each do |official_hash|
+    new_official = Official.find_or_create_by(official_hash)
+    index_of_official = (all_state_officials_names(info)).index(official_hash[:name])
+    office_id = get_official_position_title(index_of_official, info)
+    create_off_sen(new_official.id, office_id)
+
+    puts "#{Office.find_by(id: office_id).position} : #{official_hash[:name]}"
+  end
+end
+
+def get_official_hash(officials, info, address)
+  official_hashes = []
+
+  officials.each do |official|
+
+    next if (official == "Donald J. Trump" || official == "Mike Pence")
+    new_official = get_official_api_hash(official, info)
+    official_hashes << {
+      name: official,
+      address: parse_official_address(new_official),
+      party: get_party(new_official),
+      phones: get_phone_number(new_official),
+      urls: get_url(new_official),
+      photoUrl: get_photo_url(new_official),
+      Facebook: get_facebook(new_official),
+      Twitter: get_twitter(new_official),
+      YouTube: get_youtube(new_official),
       state_id: State.find_by(abbreviation: address).id,
     }
   end
 
-  senator_hashes
+  official_hashes
 end
 
-def get_senator_api_hash (senator, info)
-  senator_hash = info["officials"].select{|off| off["name"] == senator }[0]
-  senator_hash
+def get_official_api_hash (official, info)
+  official_hash = info["officials"].select{|off| off["name"] == official }[0]
+  official_hash
 end
 
-def parse_official_address(senator_hash)
-  senator_hash["address"][0].collect {|add, val| val }.join(" ")
+def parse_official_address(official_hash)
+
+  official_hash["address"][0].collect {|add, val| val }.join(" ")
+
 end
 
-def get_party(senator_hash)
-  senator_hash["party"]
+def get_party(official_hash)
+  official_hash["party"].nil? ? "N/A" : official_hash["party"]
 end
 
-def get_phone_number(senator_hash)
-  senator_hash["phones"][0]
+def get_phone_number(official_hash)
+  official_hash["phones"][0].nil? ? "N/A" : official_hash["phones"][0]
 end
 
-def get_url(senator_hash)
-  senator_hash["urls"][0]
+def get_url(official_hash)
+  official_hash["urls"].nil? ? "N/A" : official_hash["urls"][0]
 end
 
-def get_photo_url(senator_hash)
-  senator_hash["photoUrl"]
+def get_photo_url(official_hash)
+  official_hash["photoUrl"].nil? ? "N/A" : official_hash["photoUrl"]
 end
 
-def get_twitter(senator_hash)
-  senator_hash["channels"].map { |social| social["id"] if social["type"] == "Twitter" }.compact.join
+def get_twitter(official_hash)
+  official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Twitter" }.compact.join
 end
 
-def get_facebook(senator_hash)
-  senator_hash["channels"].map { |social| social["id"] if social["type"] == "Facebook" }.compact.join
+def get_facebook(official_hash)
+  official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Facebook" }.compact.join
 end
 
-def get_youtube(senator_hash)
-  senator_hash["channels"].map { |social| social["id"] if social["type"] == "YouTube" }.compact.join
+def get_youtube(official_hash)
+  official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "YouTube" }.compact.join
 end
 
 
 def show_representative_info(address)
   new_address = parse_address(address)
   info =  get_info_from_api(new_address)
-  choice = get_senators(info, address)
 
+  choice = CommandLineInterface.list_officials(info, address)
 end

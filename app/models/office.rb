@@ -1,4 +1,4 @@
 class Office < ActiveRecord::Base
-  has_many :senators, through: :office_senators
+  has_many :officials, through: :office_officials
 
 end
