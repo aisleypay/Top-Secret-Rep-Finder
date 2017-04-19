@@ -36,7 +36,7 @@ def get_offices(info)
   titles.each { |title|
     new_office = get_office_api_hash(title, info)
 
-    office_hash << { position: new_office["name"], level: new_office["levels"] }
+    office_hash << { position: new_office["name"], level: new_office["levels"]}
   }
 
   office_hash.each { |office| Office.create(office) }
