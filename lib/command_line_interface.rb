@@ -5,6 +5,7 @@ class CommandLineInterface
 
   def self.get_address_from_user
     puts "Which state would you like to get information about?"
+
     address = gets.chomp.upcase
 
     until address != nil
@@ -22,6 +23,14 @@ class CommandLineInterface
 
     puts "Which Official would you like to know more about?\n"
     choice = gets.chomp
+  end
+
+  def self.find_previous_states_searched
+    State.pluck(:abbreviation)
+  end
+
+  def self.find_previous_officials_searched
+    Official.pluck(:name)
   end
 
 end

@@ -130,7 +130,7 @@ end
 
 #parsing
 def get_phone_number(official_hash)
-  official_hash["phones"][0].nil? ? "N/A" : official_hash["phones"][0]
+  official_hash["phones"].nil? ? "N/A" : official_hash["phones"][0]
 end
 
 #parsing
