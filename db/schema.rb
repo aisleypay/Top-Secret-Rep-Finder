@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418173815) do
+ActiveRecord::Schema.define(version: 20170419004317) do
+
+  create_table "office_senators", force: :cascade do |t|
+    t.integer "senator_id"
+    t.integer "office_id"
+  end
 
   create_table "offices", force: :cascade do |t|
     t.string "position"
@@ -28,7 +33,7 @@ ActiveRecord::Schema.define(version: 20170418173815) do
     t.string  "Twitter"
     t.string  "YouTube"
     t.integer "state_id"
-    t.integer "official_id"
+    t.integer "office_id"
   end
 
   create_table "states", force: :cascade do |t|

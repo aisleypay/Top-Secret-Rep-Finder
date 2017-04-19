@@ -32,7 +32,6 @@ def get_office_api_hash(title, info)
 end
 
 def get_offices(info)
-  # info = get_info_from_api(address)
   titles = all_office_titles(info)
   office_hash = []
 
@@ -48,6 +47,25 @@ def get_offices(info)
   office_hash.each { |office| Office.create(office) }
 end
 
+def get_indicies_of_offices(info)
+  info["offices"].collect { |office| office["officialIndices"] }
+end
+
+def get_official_position_title(official_index, info)
+  indicies = get_indicies_of_offices(info)
+
+  position_index = indicies.map.with_index { |el, idx |
+    return idx if el.include?(official_index)
+  }
+
+  office_title =  all_office_titles(info)[position_index]
+  office_id = Office.find_by(position: office_title)
+end
+
+def create_off_sen(senator_index, office_id)
+  OfficeSenator.create(senator_id: senator_index, office_id: office_id)
+end
+
 def all_state_officials_names(info)
   info["officials"].collect{|official| official["name"] }
 end
@@ -60,9 +78,15 @@ def get_senators(info, address)
 
   senator_hashes = get_senator_hash(senators, info, address)
 
-
   senator_hashes.each do |senator_hash|
-    Senator.create(senator_hash)
+    new_senator = Senator.create(senator_hash)
+
+    index_of_senator = (all_state_officials_names(info)).index(senator_hash[
+      :name])
+
+    office_id = get_official_position_title(index_of_senator, info)
+    create_off_sen(new_senator.id, office_id)
+    new_senator.office_id = OfficeSenator.find_by(senator_id: new_senator.id).id
   end
 
   puts "Here are your senators: #{senators[0]} and #{senators[1]}"
@@ -87,7 +111,6 @@ def get_senator_hash(senators, info, address)
       Twitter: get_twitter(new_senator),
       YouTube: get_youtube(new_senator),
       state_id: State.find_by(abbreviation: address).id,
-      # official_id: Office.find_by(name: senator).id
     }
   end
 

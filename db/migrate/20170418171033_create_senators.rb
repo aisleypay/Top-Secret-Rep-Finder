@@ -11,7 +11,6 @@ class CreateSenators < ActiveRecord::Migration[5.0]
       t.string :Twitter
       t.string :YouTube
       t.integer :state_id
-      t.integer :official_id
     end
   end
 end
