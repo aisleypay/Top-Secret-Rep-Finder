@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20170419004317) do
 
-  create_table "office_senators", force: :cascade do |t|
-    t.integer "senator_id"
+  create_table "office_officials", force: :cascade do |t|
+    t.integer "official_id"
     t.integer "office_id"
   end
 
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20170419004317) do
     t.string "level"
   end
 
-  create_table "senators", force: :cascade do |t|
+  create_table "officials", force: :cascade do |t|
     t.string  "name"
     t.string  "address"
     t.string  "party"
