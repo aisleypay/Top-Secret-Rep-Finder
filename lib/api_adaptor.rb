@@ -4,10 +4,12 @@ require 'httparty'
 
 require_relative './command_line_interface'
 
+#api adaptor
 def create_state(address)
   State.find_or_create_by(abbreviation: address)
 end
 
+#api adaptor
 def parse_address(address)
   create_state(address)
   address_url = address.split(", ").collect {|el| "#{el}%20" }.join
@@ -116,36 +118,42 @@ def get_official_api_hash (official, info)
   official_hash
 end
 
+#parsing
 def parse_official_address(official_hash)
-
   official_hash["address"][0].collect {|add, val| val }.join(" ")
-
 end
 
+#parsing
 def get_party(official_hash)
   official_hash["party"].nil? ? "N/A" : official_hash["party"]
 end
 
+#parsing
 def get_phone_number(official_hash)
   official_hash["phones"][0].nil? ? "N/A" : official_hash["phones"][0]
 end
 
+#parsing
 def get_url(official_hash)
   official_hash["urls"].nil? ? "N/A" : official_hash["urls"][0]
 end
 
+#parsing
 def get_photo_url(official_hash)
   official_hash["photoUrl"].nil? ? "N/A" : official_hash["photoUrl"]
 end
 
+#parsing
 def get_twitter(official_hash)
   official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Twitter" }.compact.join
 end
 
+#parsing
 def get_facebook(official_hash)
   official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Facebook" }.compact.join
 end
 
+#parsing
 def get_youtube(official_hash)
   official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "YouTube" }.compact.join
 end
