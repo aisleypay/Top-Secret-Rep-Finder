@@ -2,15 +2,35 @@
 
 require_relative '../config/environment'
 
-welcome
+CommandLineInterface.welcome
 
-address = get_address_from_user
-
+address = CommandLineInterface.get_address_from_user
 choice = show_representative_info(address)
+official_info = Official.display_official_info(choice)
+puts official_info
 
 until choice == 3
-  official_info = Official.display_official_info(choice)
-  puts official_info
+  puts "Would you like to:"
+  puts "1. Find out about another representative?"
+  puts "2. Choose another state?"
+  puts "3. Exit?"
 
-  puts "Would you like to "
+  choice = gets.chomp.to_i
+
+  case choice
+    when 1
+      choice = show_representative_info(address)
+      official_info = Official.display_official_info(choice)
+      puts official_info
+
+    when 2
+      address = CommandLineInterface.get_address_from_user
+      choice = show_representative_info(address)
+      official_info = Official.display_official_info(choice)
+      puts official_info
+
+    when 3
+      puts "Good Bye"
+  end
+
 end

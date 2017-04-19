@@ -87,19 +87,12 @@ def get_officials(info, address)
   end
 end
 
-def list_officials(info, address)
-  puts "Here are your officials:\n"
-  get_offices(info)
-  get_officials(info,address)
-
-  puts "Which Official would you like to know more about?\n"
-  choice = gets.chomp
-end
-
 def get_official_hash(officials, info, address)
   official_hashes = []
 
   officials.each do |official|
+
+    next if (official == "Donald J. Trump" || official == "Mike Pence")
     new_official = get_official_api_hash(official, info)
     official_hashes << {
       name: official,
@@ -124,7 +117,9 @@ def get_official_api_hash (official, info)
 end
 
 def parse_official_address(official_hash)
+
   official_hash["address"][0].collect {|add, val| val }.join(" ")
+
 end
 
 def get_party(official_hash)
@@ -144,21 +139,15 @@ def get_photo_url(official_hash)
 end
 
 def get_twitter(official_hash)
-  handle = official_hash["channels"].map { |social| social["id"] if social["type"] == "Twitter" }.compact.join
-
-  handle.nil? ? "N/A" : handle
+  official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Twitter" }.compact.join
 end
 
 def get_facebook(official_hash)
-  handle = official_hash["channels"].map { |social| social["id"] if social["type"] == "Facebook" }.compact.join
-
-  handle.nil? ? "N/A" : handle
+  official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Facebook" }.compact.join
 end
 
 def get_youtube(official_hash)
-  handle = official_hash["channels"].map { |social| social["id"] if social["type"] == "YouTube" }.compact.join
-
-  (handle.nil? || handle.blank?) ? "N/A" : handle
+  official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "YouTube" }.compact.join
 end
 
 
@@ -166,5 +155,5 @@ def show_representative_info(address)
   new_address = parse_address(address)
   info =  get_info_from_api(new_address)
 
-  choice = list_officials(info, address)
+  choice = CommandLineInterface.list_officials(info, address)
 end
