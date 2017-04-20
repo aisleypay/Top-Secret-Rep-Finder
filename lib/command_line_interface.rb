@@ -27,11 +27,8 @@ class CommandLineInterface
 
     Office.get_offices(api_hash)
     official_hash = Official.get_officials(api_hash,address)
-    puts ""
     # The user is going to put a number
-    puts ""
-
-    choice = gets.chomp
+    choice = gets.chomp.to_i - 1
   end
 
   def self.find_previous_states_searched
