@@ -1,10 +1,17 @@
+require 'colorize'
+
 class CommandLineInterface
   def self.welcome
-    puts "Get your Representatives information here!"
+    puts ".-----------------------------------------.".red
+    puts "|-------  Get Your Representatives -------|"
+    puts "|-------        Information!       -------|"
   end
 
   def self.get_address_from_user
-    puts "Which state would you like to get information about?"
+    puts "===========================================".blue
+    puts "|~~      Please Enter: City, State      ~~|"
+    puts "|~~~~        (Ex: Boston, MA)        ~~~~~|"
+    puts "._________________________________________.".red
 
     address = gets.chomp
     puts ""
@@ -18,15 +25,18 @@ class CommandLineInterface
   end
 
   def self.list_officials(api_hash, address)
-    puts "Here are your officials:"
-    puts ""
+    puts "----------------------------------------------------------------------------".blue
+    puts "----------------------------------------------------------------------------".red
+    puts "--------            Please Select an Official From List   ------------------"
+    puts "----------------------------------------------------------------------------".red
     Office.get_offices(api_hash)
-    Official.get_officials(api_hash,address)
+    official_hash = Official.get_officials(api_hash,address)
     puts ""
-
-    puts "Which Official would you like to know more about?"
+    # The user is going to put a number
     puts ""
     choice = gets.chomp
+
+
   end
 
   def self.find_previous_states_searched
