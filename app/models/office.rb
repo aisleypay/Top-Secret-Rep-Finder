@@ -3,7 +3,7 @@ class Office < ActiveRecord::Base
   has_many :officials, through: :office_officials
 
   def self.governors
-    Office.where(position: "Governor").first.officials.count
+    puts "The total number of Governors in the USA is #{Office.where(position: "Governor").first.officials.count}.\n\n"
   end
 
   private

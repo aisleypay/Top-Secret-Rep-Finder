@@ -65,9 +65,8 @@ class CommandLineInterface
 
         when 3
           puts "Did you know?\n\n"
-          # fun_methods = [Official.top_5_states_officials_count, Official.party_tally, Office.governors, OfficeOfficial.top_5_offices]
-          # fun_methods.sample
-          Official.top_5_states_officials_count
+          fun_methods = [Official.top_5_states_officials_count, Official.party_tally, Office.governors, OfficeOfficial.top_5_offices]
+          fun_methods.sample
         when 4
           puts "Good Bye"
         else

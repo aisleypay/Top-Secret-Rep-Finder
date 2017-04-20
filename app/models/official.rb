@@ -3,6 +3,7 @@ class Official < ActiveRecord::Base
   has_many :office_officials
   has_many :offices, through: :office_officials
 
+
   def self.display_official_info(choice, address)
     officials_hash = self.get_officials(ApiAdaptor.get_info_from_api(address), address)
     name_choice = officials_hash[choice][:name]
@@ -15,8 +16,11 @@ class Official < ActiveRecord::Base
   end
 
   def self.party_tally
+    rows = Official.group(:party).size.to_a
+    table = Terminal::Table.new :headings => ["Party(?)", "Number of Officials in Party"], :rows => rows
+
     puts "How about, did you know that most databases need to be cleaned?"
-    Official.group(:party).size
+    puts table
   end
 
   def self.top_5_states_officials_count
