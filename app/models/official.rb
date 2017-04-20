@@ -4,7 +4,6 @@ class Official < ActiveRecord::Base
   has_many :offices, through: :office_officials
 
   def self.display_official_info(choice)
-
     chosen_official = self.find_by(name: choice)
 
     self.get_columns_without_id.map do |attribute|
@@ -13,8 +12,11 @@ class Official < ActiveRecord::Base
   end
 
   def self.party_tally
+    rows = Official.group(:party).size.to_a
+    table = Terminal::Table.new :headings => ["Party(?)", "Number of Officials in Party"], :rows => rows
+
     puts "How about, did you know that most databases need to be cleaned?"
-    Official.group(:party).size
+    puts table
   end
 
   def self.top_5_states_officials_count
