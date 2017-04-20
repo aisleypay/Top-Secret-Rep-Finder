@@ -31,14 +31,6 @@ class CommandLineInterface
     choice = gets.chomp.to_i - 1
   end
 
-  def self.find_previous_states_searched
-    State.pluck(:abbreviation)
-  end
-
-  def self.find_previous_officials_searched
-    Official.pluck(:name)
-  end
-
   def self.user_choices(choice)
 
     until choice == 4
