@@ -10,6 +10,16 @@ class Official < ActiveRecord::Base
 
   end
 
+  # def self.count_of_Republican_twitters
+  #
+  #   self.count
+  # end
+  #
+  # def count_of_Democrat_twitters
+  #
+  # end
+
+###################################################################################
   private
 
   def self.get_columns_without_id
@@ -21,6 +31,7 @@ class Official < ActiveRecord::Base
   end
 
   def self.get_officials(api_hash, address)
+
     indicies = Office.get_indicies_of_offices(api_hash)
     officials = all_state_officials_names(api_hash)
     officials_hash = get_official_hash(officials, api_hash, address)
@@ -45,9 +56,9 @@ class Official < ActiveRecord::Base
     official_hashes = []
 
     officials.each do |official|
-
       next if (official == "Donald J. Trump" || official == "Mike Pence")
       new_official = get_official_api_hash(official, api_hash)
+
       official_hashes << {
         name: official,
         address: ApiAdaptor.parse_official_address(new_official),
@@ -58,8 +69,9 @@ class Official < ActiveRecord::Base
         Facebook: ApiAdaptor.get_facebook(new_official),
         Twitter: ApiAdaptor.get_twitter(new_official),
         YouTube: ApiAdaptor.get_youtube(new_official),
-        state_id: State.find_by(abbreviation: address).id,
-      }
+        state_id: State.find_by(abbreviation: ApiAdaptor.separate_city_state(address)[1]).id
+                                                                        # add [0] before [1] when seeding
+       }
     end
 
     official_hashes

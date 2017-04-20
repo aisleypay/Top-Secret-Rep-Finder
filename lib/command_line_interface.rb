@@ -6,7 +6,8 @@ class CommandLineInterface
   def self.get_address_from_user
     puts "Which state would you like to get information about?"
 
-    address = gets.chomp.upcase
+    address = gets.chomp
+    puts ""
 
     until address != nil
       puts "Sorry, that's not valid try again"
@@ -16,12 +17,15 @@ class CommandLineInterface
     address
   end
 
-  def self.list_officials(info, address)
-    puts "Here are your officials:\n"
-    Office.get_offices(info)
-    Official.get_officials(info,address)
+  def self.list_officials(api_hash, address)
+    puts "Here are your officials:"
+    puts ""
+    Office.get_offices(api_hash)
+    Official.get_officials(api_hash,address)
+    puts ""
 
-    puts "Which Official would you like to know more about?\n"
+    puts "Which Official would you like to know more about?"
+    puts ""
     choice = gets.chomp
   end
 
