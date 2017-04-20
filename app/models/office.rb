@@ -1,7 +1,10 @@
 class Office < ActiveRecord::Base
+  has_many :office_officials
   has_many :officials, through: :office_officials
 
-
+  def self.governors
+    Office.where(position: "Governor").first.officials.count
+  end
 
   private
 

@@ -4,15 +4,10 @@ class CommandLineInterface
   end
 
   def self.get_address_from_user
-    puts "Which state would you like to get information about?"
+    puts "Which location would you like to get information about? Please input as 'city, state'"
 
     address = gets.chomp
     puts ""
-
-    until address != nil
-      puts "Sorry, that's not valid try again"
-      address = gets.chomp
-    end
 
     address
   end
@@ -35,6 +30,45 @@ class CommandLineInterface
 
   def self.find_previous_officials_searched
     Official.pluck(:name)
+  end
+
+  def self.user_choices(choice)
+
+    until choice == 4
+      puts "Would you like to:"
+      puts "1. Find out about another representative?"
+      puts "2. Choose another location?"
+      puts "3. Here are some interesting facts!"
+      puts "4. Exit?"
+
+      choice = gets.chomp.to_i
+
+      case choice
+        when 1
+          choice = ApiAdaptor.show_representative_info(address)
+          official_info = Official.display_official_info(choice)
+          puts official_info
+          puts ""
+
+        when 2
+          address = CommandLineInterface.get_address_from_user
+          choice = ApiAdaptor.show_representative_information(address)
+          official_info = Official.display_official_info(choice)
+          puts official_info
+          puts ""
+
+        when 3
+          puts "Did you know?"
+          puts ""
+          fun_methods = [Official.top_5_states_officials_count, Official.party_tally, Office.governors, OfficeOfficial.top_5_offices]
+          
+        when 4
+          puts "Good Bye"
+        else
+          puts "MAKE A CHOICE FOOL wtf..."
+      end
+
+    end
   end
 
 end

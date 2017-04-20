@@ -1,5 +1,7 @@
 class Official < ActiveRecord::Base
   belongs_to :state
+  has_many :office_officials
+  has_many :offices, through: :office_officials
 
   def self.display_official_info(choice)
     chosen_official = self.find_by(name: choice)
@@ -7,17 +9,24 @@ class Official < ActiveRecord::Base
     self.get_columns_without_id.map do |attribute|
       puts "#{attribute.capitalize}: #{chosen_official[attribute]}" unless attribute == "state_id"
     end
-
   end
 
-  # def self.count_of_Republican_twitters
-  #
-  #   self.count
-  # end
-  #
-  # def count_of_Democrat_twitters
-  #
-  # end
+  def self.party_tally
+    puts "How about, did you know that most databases need to be cleaned?"
+    Official.group(:party).size
+  end
+
+  def self.top_5_states_officials_count
+    puts "That TEXAS has mad officials?"
+    states = State.joins(:officials).group(:abbreviation).order(:abbreviation).count.sort_by{ |k, v| -v}
+
+    puts "** State **|** Offical Count **"
+
+    states.each { |state|
+    puts "*  #{state[0]}      |   #{state[1]}  "
+    }
+    puts "*******************************"
+  end
 
 ###################################################################################
   private

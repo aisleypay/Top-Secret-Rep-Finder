@@ -1,5 +1,9 @@
 class OfficeOfficial < ActiveRecord::Base
-  has_many :officials
-  has_many :offices
+  belongs_to :official
+  belongs_to :office
+
+  def self.top_5_offices
+    self.joins(:office, :official).group('offices.position').order('officials.name').count.sort_by{ |k, v| v}[-5..-1]
+  end
 
 end
