@@ -1,26 +1,22 @@
+require 'terminal-table'
+
 class CommandLineInterface
   def self.welcome
     puts "Get your Representatives information here!"
   end
 
   def self.get_address_from_user
-    puts "Which location would you like to get information about? Please input as 'city, state'"
-
+    puts "Which location would you like to get information about? Please input as 'city, state'\n\n"
     address = gets.chomp
-    puts ""
-
-    address
   end
 
   def self.list_officials(api_hash, address)
-    puts "Here are your officials:"
-    puts ""
+    puts "Here are your officials:\n\n"
+
     Office.get_offices(api_hash)
     Official.get_officials(api_hash,address)
-    puts ""
 
-    puts "Which Official would you like to know more about?"
-    puts ""
+    puts "\nWhich Official would you like to know more about?\n\n"
     choice = gets.chomp
   end
 
@@ -54,14 +50,13 @@ class CommandLineInterface
           address = CommandLineInterface.get_address_from_user
           choice = ApiAdaptor.show_representative_information(address)
           official_info = Official.display_official_info(choice)
-          puts official_info
-          puts ""
+          puts official_info + "\n\n"
 
         when 3
-          puts "Did you know?"
-          puts ""
-          fun_methods = [Official.top_5_states_officials_count, Official.party_tally, Office.governors, OfficeOfficial.top_5_offices]
-          
+          puts "Did you know?\n\n"
+          # fun_methods = [Official.top_5_states_officials_count, Official.party_tally, Office.governors, OfficeOfficial.top_5_offices]
+          # fun_methods.sample
+          OfficeOfficial.top_5_offices
         when 4
           puts "Good Bye"
         else

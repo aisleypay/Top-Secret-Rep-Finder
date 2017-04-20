@@ -7,4 +7,4 @@ gem "pry"
 gem "require_all"
 gem "httparty"
 gem 'json'
-gem "table_print"
+gem 'terminal-table'
