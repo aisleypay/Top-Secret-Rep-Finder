@@ -7,7 +7,7 @@ CommandLineInterface.welcome
 
 address = CommandLineInterface.get_address_from_user
 choice = ApiAdaptor.show_representative_information(address)
-official_info = Official.display_official_info(choice)
+official_info = Official.display_official_info(choice, address)
 puts official_info
 puts ""
 

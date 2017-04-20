@@ -3,9 +3,11 @@ class Official < ActiveRecord::Base
   has_many :office_officials
   has_many :offices, through: :office_officials
 
-  def self.display_official_info(choice)
+  def self.display_official_info(choice, address)
+    officials_hash = self.get_officials(ApiAdaptor.get_info_from_api(address), address)
+    name_choice = officials_hash[choice][:name]
 
-    chosen_official = self.find_by(name: choice)
+    chosen_official = self.find_by(name: name_choice)
 
     self.get_columns_without_id.map do |attribute|
       puts "#{attribute.capitalize}: #{chosen_official[attribute]}" unless attribute == "state_id"
