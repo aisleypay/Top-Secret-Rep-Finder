@@ -7,4 +7,5 @@ gem "pry"
 gem "require_all"
 gem "httparty"
 gem 'json'
+gem 'terminal-table'
 gem 'colorize'
