@@ -1,22 +1,36 @@
 require 'terminal-table'
+require 'colorize'
 
 class CommandLineInterface
   def self.welcome
-    puts "Get your Representatives information here!"
+    puts ".-----------------------------------------.".red
+    puts "|-------  Get Your Representatives -------|"
+    puts "|-------        Information!       -------|"
   end
 
   def self.get_address_from_user
-    puts "Which location would you like to get information about? Please input as 'city, state'\n\n"
+
+    puts "===========================================".blue
+    puts "|~~      Please Enter: City, State      ~~|"
+    puts "|~~~~        (Ex: Boston, MA)        ~~~~~|"
+    puts "._________________________________________.".red
+
     address = gets.chomp
   end
 
   def self.list_officials(api_hash, address)
-    puts "Here are your officials:\n\n"
+
+    puts "----------------------------------------------------------------------------".blue
+    puts "----------------------------------------------------------------------------".red
+    puts "--------            Please Select an Official From List   ------------------"
+    puts "----------------------------------------------------------------------------".red
 
     Office.get_offices(api_hash)
-    Official.get_officials(api_hash,address)
+    official_hash = Official.get_officials(api_hash,address)
+    puts ""
+    # The user is going to put a number
+    puts ""
 
-    puts "\nWhich Official would you like to know more about?\n\n"
     choice = gets.chomp
   end
 
@@ -56,7 +70,7 @@ class CommandLineInterface
           puts "Did you know?\n\n"
           # fun_methods = [Official.top_5_states_officials_count, Official.party_tally, Office.governors, OfficeOfficial.top_5_offices]
           # fun_methods.sample
-          OfficeOfficial.top_5_offices
+          Official.top_5_states_officials_count
         when 4
           puts "Good Bye"
         else

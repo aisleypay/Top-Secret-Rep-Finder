@@ -2,6 +2,7 @@ require'json'
 require 'pry'
 require 'httparty'
 
+
 require_relative './command_line_interface'
 
 class ApiAdaptor

@@ -4,6 +4,7 @@ class Official < ActiveRecord::Base
   has_many :offices, through: :office_officials
 
   def self.display_official_info(choice)
+
     chosen_official = self.find_by(name: choice)
 
     self.get_columns_without_id.map do |attribute|
@@ -17,15 +18,11 @@ class Official < ActiveRecord::Base
   end
 
   def self.top_5_states_officials_count
-    puts "That TEXAS has mad officials?"
-    states = State.joins(:officials).group(:abbreviation).order(:abbreviation).count.sort_by{ |k, v| -v}
+    rows = State.joins(:officials).group(:abbreviation).order(:abbreviation).count.sort_by{ |k, v| v}[-5..-1]
+    table = Terminal::Table.new :headings => ["State", "Official Count"], :rows => rows
 
-    puts "** State **|** Offical Count **"
-
-    states.each { |state|
-    puts "*  #{state[0]}      |   #{state[1]}  "
-    }
-    puts "*******************************"
+    puts "That TEXAS has mad officials?\n\n"
+    puts table
   end
 
 ###################################################################################
@@ -45,14 +42,16 @@ class Official < ActiveRecord::Base
     officials = all_state_officials_names(api_hash)
     officials_hash = get_official_hash(officials, api_hash, address)
 
-    officials_hash.each do |official_hash|
+    officials_hash.each.with_index(1) do |official_hash, i|
       new_official = Official.find_or_create_by(official_hash)
       index_of_official = (all_state_officials_names(api_hash)).index(official_hash[:name])
       office_id = Office.get_official_id(index_of_official, api_hash)
 
       OfficeOfficial.find_or_create_by(official_id: new_official.id, office_id: office_id)
 
-      puts "#{Office.find_by(id: office_id).position} : #{official_hash[:name]}"
+      puts "----------------------------------------------------------------------------".blue
+      puts "#{i}.)   #{official_hash[:name]} (#{Office.find_by(id: office_id).position})"
+      officials_hash
     end
   end
 
