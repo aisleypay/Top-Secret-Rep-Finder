@@ -40,4 +40,4 @@ For example:
 
 ## User Walkthrough
 
-[![REPS are AWESOME](http://i.imgur.com/Ot5DWAW.png)](https://www.youtube.com/watch?v=uakqYjdI6S0 "Representatives are AWESOME")
+[![REPS are AWESOME](http://i.imgur.com/Ot5DWAW.png)](https://www.youtube.com/watch?v=LUT2zRqL6Jo "Representatives are AWESOME")

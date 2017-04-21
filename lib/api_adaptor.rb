@@ -21,7 +21,7 @@ class ApiAdaptor
     response = HTTParty.get("https://www.googleapis.com/civicinfo/v2/representatives?key=#{api_key}&address=#{address}", query: { 'api_key_id' => api_key }, format: :plain)
     JSON.parse(response)
   end
-
+  
   # Parse Data from api_hash
 
   def self.parse_official_address(official_hash)
