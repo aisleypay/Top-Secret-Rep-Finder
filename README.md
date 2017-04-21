@@ -6,37 +6,36 @@ Based on the [Google Civic API](https://developers.google.com/civic-information/
 
 ## Install
 
-```
+```ruby
 $ bundle install
 ```
-
 ## Usage
 Type the below code into your Terminal:
-```
+```ruby
 $ ruby bin/run.rb
 ```
 The below prompt will appear:
 
-![greeting_prompt](/Users/flatironschool/projects/Top-Secret-Rep-Finder/images/Screen Shot 2017-04-21 at 11.27.27 AM.png)
+![greeting_prompt](http://i.imgur.com/jmiTvnh.png)
 
 ### View Results
 Next, type in a City and State. This will return the location's associated officials.
 
-![location_entry_example](/Users/flatironschool/projects/Top-Secret-Rep-Finder/images/Screen Shot 2017-04-21 at 11.30.14 AM.png)
+![location_entry_example](http://i.imgur.com/4wjGhjh.png)
 
 ![example_list_officials](http://i.imgur.com/TSWlLel.png)
 
 From that list select the number of one of the Official's to get more specific information:
 
-![specifice_offical_example](/Users/flatironschool/projects/Top-Secret-Rep-Finder/images/Screen Shot 2017-04-21 at 2.07.54 PM.png)
+![specifice_offical_example](http://i.imgur.com/alrhi2sg.png)
 
 Finally, you can either choose to find out more about your queried locaiton's other Officials, search a new locaiton, or view some interesting facts about the US and/or the Google Civic API.  :)
 
-![choice_menu](/Users/flatironschool/projects/Top-Secret-Rep-Finder/images/Screen Shot 2017-04-21 at 2.07.44 PM.png)
+![choice_menu](http://i.imgur.com/KO9eqHy.png)
 
 For example:
 
-![sheriff_example](/Users/flatironschool/projects/Top-Secret-Rep-Finder/images/Screen Shot 2017-04-21 at 11.31.13 AM.png)
+![sheriff_example](http://i.imgur.com/xrIrtLR.png)
 
 ## User Walkthrough
 

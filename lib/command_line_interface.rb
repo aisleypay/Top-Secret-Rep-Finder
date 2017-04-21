@@ -13,7 +13,7 @@ class CommandLineInterface
     puts '==========================================='.blue
     puts '|~~      Please Enter: City, State      ~~|'
     puts '|~~~~        (Ex: Boston, MA)        ~~~~~|'
-    puts '._________________________________________.\n'.red
+    puts '._________________________________________.'.red
 
     address = gets.chomp
   end
@@ -65,7 +65,7 @@ class CommandLineInterface
         sleep(2)
         OfficeOfficial.top_5_offices
         sleep(2)
-        
+
       when 99
         puts '.-----------------------------------------.'.red
         puts '-------------------------------------------'.red

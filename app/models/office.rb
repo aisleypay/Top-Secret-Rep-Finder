@@ -7,14 +7,12 @@ class Office < ActiveRecord::Base
     puts "The total number of Governors in the USA is #{Office.where(position: "Governor").first.officials.count}. (per Google Civic)\n\n"
   end
 
-  private
-
   def self.all_office_titles(api_hash)
-    api_hash["offices"].collect{|office| office["name"] }
+    api_hash['offices'].collect{ |office| office['name'] }
   end
 
   def self.get_office_api_hash(title, api_hash)
-    office_hash = api_hash["offices"].select{|off| off["name"] == title}[0]
+    office_hash = api_hash['offices'].select { |off| off['name'] == title }[0]
   end
 
   def self.get_offices(api_hash)
@@ -23,14 +21,14 @@ class Office < ActiveRecord::Base
 
     titles.each do |title|
       new_office = get_office_api_hash(title, api_hash)
-      office_hash << { position: new_office["name"], level: new_office["levels"].to_s}
+      office_hash << { position: new_office['name'], level: new_office['levels'].to_s}
     end
 
     office_hash.each { |office| Office.find_or_create_by(office) }
   end
 
   def self.get_indicies_of_offices(api_hash)
-    api_hash["offices"].collect { |office| office["officialIndices"] }
+    api_hash['offices'].collect { |office| office['officialIndices'] }
   end
 
   def self.get_specific_office_title (official_index, api_hash)

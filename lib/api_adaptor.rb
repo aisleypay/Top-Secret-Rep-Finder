@@ -21,7 +21,7 @@ class ApiAdaptor
     response = HTTParty.get("https://www.googleapis.com/civicinfo/v2/representatives?key=#{api_key}&address=#{address}", query: { 'api_key_id' => api_key }, format: :plain)
     JSON.parse(response)
   end
-  
+
   # Parse Data from api_hash
 
   def self.parse_official_address(official_hash)
@@ -66,8 +66,8 @@ class ApiAdaptor
   end
 
   def self.show_representative_information(address)
-      new_address = address_url(address)
-      api_hash =  get_info_from_api(new_address)
-      choice = CommandLineInterface.list_officials(api_hash, address)
+    new_address = address_url(address)
+    api_hash =  get_info_from_api(new_address)
+    choice = CommandLineInterface.list_officials(api_hash, address)
   end
 end
