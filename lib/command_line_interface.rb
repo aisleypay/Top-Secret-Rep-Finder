@@ -13,7 +13,7 @@ class CommandLineInterface
     puts "===========================================".blue
     puts "|~~      Please Enter: City, State      ~~|"
     puts "|~~~~        (Ex: Boston, MA)        ~~~~~|"
-    puts "._________________________________________.".red
+    puts "._________________________________________.\n".red
 
     address = gets.chomp
   end
@@ -23,15 +23,16 @@ class CommandLineInterface
     puts "----------------------------------------------------------------------------".blue
     puts "----------------------------------------------------------------------------".red
     puts "--------            Please Select an Official From List   ------------------"
-    puts "----------------------------------------------------------------------------".red
+    puts "----------------------------------------------------------------------------\n".red
 
     Office.get_offices(api_hash)
     official_hash = Official.get_officials(api_hash,address)
+
     # The user is going to put a number
     choice = gets.chomp.to_i - 1
   end
 
-  def self.user_choices(choice)
+  def self.user_choices(choice, address)
 
     until choice == 4
       puts "Would you like to:"
@@ -44,16 +45,15 @@ class CommandLineInterface
 
       case choice
         when 1
-          choice = ApiAdaptor.show_representative_info(address)
-          official_info = Official.display_official_info(choice)
-          puts official_info
-          puts ""
+          choice = ApiAdaptor.show_representative_information(address)
+          official_info = Official.display_official_info(choice, address)
+          official_info
 
         when 2
           address = CommandLineInterface.get_address_from_user
           choice = ApiAdaptor.show_representative_information(address)
-          official_info = Official.display_official_info(choice)
-          puts official_info + "\n\n"
+          official_info = Official.display_official_info(choice, address)
+          official_info
 
         when 3
           puts "Did you know?\n\n"
