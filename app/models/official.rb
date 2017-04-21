@@ -36,20 +36,21 @@ class Official < ActiveRecord::Base
   private
 
   def self.get_columns_without_id
-    columns[1..-1].collect{ |c| c.name}
+    columns[1..-1].collect(&:name)
   end
 
   def self.all_state_officials_names(api_hash)
-    api_hash['officials'].collect{ |official| official['name'] }
+    api_hash['officials'].collect { |official| official['name'] }
   end
 
   def self.get_officials(api_hash, address)
-
     officials = all_state_officials_names(api_hash)
     officials_hash = get_official_hash(officials, api_hash, address)
+
     puts '*--------------------------------------------------------------------------*'
     puts '*--------------------------------------------------------------------------*'.red
     puts '*--------------------------------------------------------------------------*'.blue
+
     officials_hash.each.with_index(1) do |official_hash, i|
       new_official = Official.find_or_create_by(official_hash)
       index_of_official = (all_state_officials_names(api_hash)).index(official_hash[:name])
@@ -59,14 +60,14 @@ class Official < ActiveRecord::Base
 
       puts "|| #{i}.)   #{official_hash[:name]} (#{Office.find_by(id: office_id).position})"
     end
+
     puts '*--------------------------------------------------------------------------*'.blue
     puts '*--------------------------------------------------------------------------*'.red
     puts '*--------------------------------------------------------------------------*'
-
     officials_hash
   end
 
-  def self.get_official_api_hash (official, api_hash)
+  def self.get_official_api_hash(official, api_hash)
     official_hash = api_hash['officials'].select{ |off| off['name'] == official }[0]
     official_hash
   end
@@ -95,5 +96,4 @@ class Official < ActiveRecord::Base
 
     official_hashes
   end
-
 end
