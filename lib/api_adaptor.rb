@@ -1,14 +1,12 @@
 require'json'
 require 'pry'
 require 'httparty'
-
-
 require_relative './command_line_interface'
 
 class ApiAdaptor
 
   def self.separate_city_state(address)
-    city_state = address.split(", ")
+    city_state = address.split(', ')
   end
   def self.parse_address(address)
     formatted_address = self.separate_city_state(address)
@@ -26,54 +24,54 @@ class ApiAdaptor
   #Parse Data from api_hash
 
   def self.parse_official_address(official_hash)
-    official_hash["address"][0].collect {|add, val| val }.join(" ")
+    official_hash['address'][0].collect { |add, val| val }.join(' ')
   end
 
   def self.get_party(official_hash)
-    official_hash["party"].nil? ? "N/A" : official_hash["party"]
+    official_hash['party'].nil? ? 'N/A' : official_hash['party']
   end
 
   def self.get_official_api_hash (official, info)
-    official_hash = info["officials"].select{|off| off["name"] == official }[0]
+    official_hash = info['officials'].select{ |off| off['name'] == official }[0]
     official_hash
   end
 
   def self.parse_official_address(official_hash)
-    official_hash["address"].nil? ? "N/A" : official_hash["address"][0].collect {|add, val| val }.join(" ")
+    official_hash['address'].nil? ? 'N/A' : official_hash['address'][0].collect { |add, val| val }.join(' ')
   end
 
   def self.get_party(official_hash)
-    official_hash["party"].nil? ? "N/A" : official_hash["party"]
+    official_hash['party'].nil? ? 'N/A' : official_hash['party']
   end
 
   def self.get_phone_number(official_hash)
-    official_hash["phones"].nil? ? "N/A" : official_hash["phones"][0]
+    official_hash['phones'].nil? ? 'N/A' : official_hash['phones'][0]
   end
 
   def self.get_url(official_hash)
-    official_hash["urls"].nil? ? "N/A" : official_hash["urls"][0]
+    official_hash['urls'].nil? ? 'N/A' : official_hash['urls'][0]
   end
 
   def self.get_photo_url(official_hash)
-    official_hash["photoUrl"].nil? ? "N/A" : official_hash["photoUrl"]
+    official_hash['photoUrl'].nil? ? 'N/A' : official_hash['photoUrl']
   end
 
   def self.get_twitter(official_hash)
-    official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Twitter" }.compact.join
+    official_hash['channels'].nil? ? 'N/A' : official_hash['channels'].map { |social| social['id'] if social['type'] == 'Twitter' }.compact.join
   end
 
   def self.get_facebook(official_hash)
-    official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "Facebook" }.compact.join
+    official_hash['channels'].nil? ? 'N/A' : official_hash['channels'].map { |social| social['id'] if social['type'] == 'Facebook' }.compact.join
   end
 
   def self.get_youtube(official_hash)
-    official_hash["channels"].nil? ? "N/A" : official_hash["channels"].map { |social| social["id"] if social["type"] == "YouTube" }.compact.join
+    official_hash['channels'].nil? ? 'N/A' : official_hash['channels'].map { |social| social['id'] if social['type'] == 'YouTube' }.compact.join
   end
 
   def self.show_representative_information(address)
     new_address = parse_address(address)
     api_hash =  get_info_from_api(new_address)
-    choice = CommandLineInterface.list_officials(api_hash, address)
+    CommandLineInterface.list_officials(api_hash, address)
   end
 
 end

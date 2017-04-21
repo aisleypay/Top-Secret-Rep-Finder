@@ -11,7 +11,7 @@ def seed_cities_and_states
 end
 
 def seed_officials
-  locations = CsvParser.get_cities_states.collect {|location| location.join(", ") }
+  locations = CsvParser.cities_states.collect {|location| location.join(", ") }
 
   us_territories = %w(PR VI AA FM MH PW AE AP AS GU)
 
