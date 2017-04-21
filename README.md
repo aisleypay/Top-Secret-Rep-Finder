@@ -14,7 +14,6 @@ Type the below code into your Terminal:
 ```ruby
 $ ruby bin/run.rb
 ```
-
 The below prompt will appear:
 
 ![greeting_prompt](http://i.imgur.com/jmiTvnh.png)
