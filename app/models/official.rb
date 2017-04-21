@@ -11,7 +11,6 @@ class Official < ActiveRecord::Base
     chosen_official = self.find_by(name: name_choice)
 
     self.get_columns_without_id.each do |attribute|
-      puts "\n----------------------------------------------------------------------------".blue
       puts "#{attribute.capitalize}: #{chosen_official[attribute]}" unless attribute == "state_id"
     end
   end
@@ -45,7 +44,6 @@ class Official < ActiveRecord::Base
 
   def self.get_officials(api_hash, address)
 
-    indicies = Office.get_indicies_of_offices(api_hash)
     officials = all_state_officials_names(api_hash)
     officials_hash = get_official_hash(officials, api_hash, address)
 
@@ -59,6 +57,7 @@ class Official < ActiveRecord::Base
       puts "----------------------------------------------------------------------------".blue
       puts "#{i}.)   #{official_hash[:name]} (#{Office.find_by(id: office_id).position})"
     end
+    puts ""
 
     officials_hash
   end
