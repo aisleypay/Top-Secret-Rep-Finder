@@ -11,19 +11,17 @@ def seed_cities_and_states
 end
 
 def seed_officials
-  locations = CsvParser.cities_states.collect {|location| location.join(", ") }
-
+  locations = CsvParser.cities_states.collect { |location| location.join(', ') }
   us_territories = %w(PR VI AA FM MH PW AE AP AS GU)
 
   locations.uniq.each do |location|
+    location = location.split(', ')
     begin
-      next if us_territories.include?(location.split(", ")[1])
-
-      new_address = ApiAdaptor.parse_address(location)
+      next if us_territories.include?(location[1])
+      new_address = ApiAdaptor.address_url(location)
       api_hash =  ApiAdaptor.get_info_from_api(new_address)
-
       Office.get_offices(api_hash)
-      Official.get_officials(api_hash,location.split(", "))
+      Official.get_officials(api_hash, location)
     rescue
       next
     end

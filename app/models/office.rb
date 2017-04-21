@@ -1,9 +1,10 @@
+# established an office and stores in SQLite table
 class Office < ActiveRecord::Base
   has_many :office_officials
   has_many :officials, through: :office_officials
 
   def self.governors
-    puts "The total number of Governors in the USA is #{Office.where(position: "Governor").first.officials.count}.\n\n"
+    puts "The total number of Governors in the USA is #{Office.where(position: "Governor").first.officials.count}. (per Google Civic)\n\n"
   end
 
   private

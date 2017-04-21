@@ -1,3 +1,4 @@
+# Official class instantiates and stores in database each official. Additionally there are some methods analyzing officals table.
 class Official < ActiveRecord::Base
   belongs_to :state
   has_many :office_officials
@@ -5,19 +6,19 @@ class Official < ActiveRecord::Base
 
 
   def self.display_official_info(choice, address)
-    officials_hash = self.get_officials(ApiAdaptor.get_info_from_api(address), address)
+    officials_hash = get_officials(ApiAdaptor.get_info_from_api(address), address)
     name_choice = officials_hash[choice][:name]
 
     chosen_official = self.find_by(name: name_choice)
 
-    self.get_columns_without_id.each do |attribute|
-      puts "#{attribute.capitalize}: #{chosen_official[attribute]}" unless attribute == "state_id"
+    get_columns_without_id.each do |attribute|
+      puts "#{attribute.capitalize}: #{chosen_official[attribute]}" unless attribute == 'state_id'
     end
   end
 
   def self.party_tally
     rows = Official.group(:party).size.to_a
-    table = Terminal::Table.new :headings => ["Party(?)", "Number of Officials in Party"], :rows => rows
+    table = Terminal::Table.new :headings => ['Party(?)', 'Number of Officials in Party'], :rows => rows
 
     puts "How about, did you know that most databases need to be cleaned?"
     puts table
@@ -25,7 +26,7 @@ class Official < ActiveRecord::Base
 
   def self.top_5_states_officials_count
     rows = State.joins(:officials).group(:abbreviation).order(:abbreviation).count.sort_by{ |k, v| v}[-5..-1]
-    table = Terminal::Table.new :headings => ["State", "Official Count"], :rows => rows
+    table = Terminal::Table.new :headings => ['State', 'Official Count'], :rows => rows
 
     puts "That TEXAS has mad officials?\n\n"
     puts table
@@ -35,11 +36,11 @@ class Official < ActiveRecord::Base
   private
 
   def self.get_columns_without_id
-    self.columns[1..-1].collect{ |c| c.name}
+    columns[1..-1].collect{ |c| c.name}
   end
 
   def self.all_state_officials_names(api_hash)
-    api_hash["officials"].collect{|official| official["name"] }
+    api_hash["officials"].collect{ |official| official["name"] }
   end
 
   def self.get_officials(api_hash, address)
@@ -63,7 +64,7 @@ class Official < ActiveRecord::Base
   end
 
   def self.get_official_api_hash (official, api_hash)
-    official_hash = api_hash["officials"].select{|off| off["name"] == official }[0]
+    official_hash = api_hash["officials"].select{ |off| off["name"] == official }[0]
     official_hash
   end
 
@@ -86,7 +87,7 @@ class Official < ActiveRecord::Base
         YouTube: ApiAdaptor.get_youtube(new_official),
         state_id: State.find_by(abbreviation: ApiAdaptor.separate_city_state(address)[1]).id
                                                                         # add [0] before [1] when seeding
-       }
+      }
     end
 
     official_hashes

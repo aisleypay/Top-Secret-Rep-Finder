@@ -1,3 +1,4 @@
+# creates Officials table in SQLite database
 class CreateOfficials < ActiveRecord::Migration[5.0]
   def change
     create_table :officials do |t|

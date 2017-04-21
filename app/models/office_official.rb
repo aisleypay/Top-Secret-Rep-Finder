@@ -1,3 +1,4 @@
+# Join table/class for offices and officials
 class OfficeOfficial < ActiveRecord::Base
   belongs_to :official
   belongs_to :office
@@ -9,5 +10,4 @@ class OfficeOfficial < ActiveRecord::Base
     puts "*There are more Sheriff's than any other Official position in the USA*\n\n"
     puts table
   end
-
 end
