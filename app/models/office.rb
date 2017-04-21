@@ -12,7 +12,7 @@ class Office < ActiveRecord::Base
   end
 
   def self.get_office_api_hash(title, api_hash)
-    office_hash = api_hash['offices'].select{ |off| off['name'] == title}[0]
+    office_hash = api_hash['offices'].select { |off| off['name'] == title }[0]
   end
 
   def self.get_offices(api_hash)

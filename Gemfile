@@ -2,11 +2,11 @@
 
 source 'https://rubygems.org'
 
-gem 'pry'
-gem 'httparty'
-gem 'sinatra-activerecord'
-gem 'require_all'
 gem 'colorize'
+gem 'httparty'
 gem 'json'
+gem 'pry'
+gem 'require_all'
+gem 'sinatra-activerecord'
 gem 'sqlite3'
 gem 'terminal-table'
