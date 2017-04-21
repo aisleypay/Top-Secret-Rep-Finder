@@ -1,6 +1,7 @@
 # AMERICA
 
 ![alt text](http://www.apexflags.com/i//Executive_Order_10834_Flag_1.jpg)
+![choice_menu](http://i.dailymail.co.uk/i/pix/2015/12/16/12/2F6915C100000578-0-image-m-15_1450269705441.jpg)
 
 Based on the [Google Civic API](https://developers.google.com/civic-information/), type in City and State to find out who the Officials are for that location.
 
@@ -40,3 +41,4 @@ For example:
 ## User Walkthrough
 
 [![REPS are AWESOME](http://i.imgur.com/Ot5DWAW.png)](https://www.youtube.com/watch?v=LUT2zRqL6Jo "Representatives are AWESOME")
+
