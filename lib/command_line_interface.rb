@@ -65,6 +65,7 @@ class CommandLineInterface
         sleep(2)
         OfficeOfficial.top_5_offices
         sleep(2)
+        
       when 99
         puts '.-----------------------------------------.'.red
         puts '-------------------------------------------'.red

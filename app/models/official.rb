@@ -6,13 +6,13 @@ class Official < ActiveRecord::Base
 
 
   def self.display_official_info(choice, address)
-    officials_hash = get_officials(ApiAdaptor.get_info_from_api(address), address)
+    officials_hash = get_official_hash(all_state_officials_names(ApiAdaptor.get_info_from_api(address)),ApiAdaptor.get_info_from_api(address), address)
     name_choice = officials_hash[choice][:name]
 
     chosen_official = self.find_by(name: name_choice)
 
     get_columns_without_id.each do |attribute|
-      puts "|-| #{attribute.capitalize} #{chosen_official[attribute]}".red unless attribute == "state_id"
+      puts "|-| #{attribute.capitalize} #{chosen_official[attribute]}".red unless attribute == 'state_id'
     end
   end
 

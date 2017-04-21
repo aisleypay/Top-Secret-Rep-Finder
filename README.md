@@ -32,7 +32,7 @@ From that list select the number of one of the Official's to get more specific i
 
 Finally, you can either choose to find out more about your queried locaiton's other Officials, search a new locaiton, or view some interesting facts about the US and/or the Google Civic API.  :)
 
-![choice_menu](https://lh3.googleusercontent.com/CKv5kK4AgSSIjyBPUftfDnGYm0q6hzN0-K-_Ysrq_wjf4EU3e45Q1iEreGheaFFCsDbD6HYuCbtjVwE=w2554-h1218)
+![choice_menu](https://lh5.googleusercontent.com/nqsgFi-QylPxhovNCgirN04xJ1csPEpwz2o_zflfschwVuKkHmvQ6JFaHmuyoHvoGkEodJMtJSHQUuY=w2554-h1218)
 
 For example:
 

@@ -66,8 +66,8 @@ class ApiAdaptor
   end
 
   def self.show_representative_information(address)
-    new_address = address_url(address)
-    api_hash =  get_info_from_api(new_address)
-    choice = CommandLineInterface.list_officials(api_hash, address)
+      new_address = address_url(address)
+      api_hash =  get_info_from_api(new_address)
+      choice = CommandLineInterface.list_officials(api_hash, address)
   end
 end
