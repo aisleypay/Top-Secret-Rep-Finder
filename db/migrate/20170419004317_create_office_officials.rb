@@ -1,3 +1,4 @@
+# creates OfficeOfficials join table in SQLite database
 class CreateOfficeOfficials < ActiveRecord::Migration[5.0]
 
   def change

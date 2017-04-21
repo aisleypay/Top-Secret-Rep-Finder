@@ -1,32 +1,43 @@
-# Module One Final Project Guidelines
+# AMERICA
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+![alt text](http://www.apexflags.com/i//Executive_Order_10834_Flag_1.jpg)
 
-For your final project, we'll be building a Command Line database application.
+Based on the [Google Civic API](https://developers.google.com/civic-information/), type in City and State to find out who the Officials are for that location.
 
-## Project Requirements
+## Install
 
-### Option One - Data Analytics Project 
+```
+$ bundle install
+```
 
-1. Access a Sqlite3 Database using ActiveRecord. 
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface. 
+## Usage
+Type the below code into your Terminal:
+```
+$ ruby bin/run.rb
+```
+The below prompt will appear:
 
-### Option Two - Command Line CRUD App
+![greeting_prompt](https://lh5.googleusercontent.com/pu_N8RWPzjLJgrouJgKRs0nMgCMkEJBrd0eYXx4xNsMySEv8c1GEdxJ_N-GD-qEFpSO9K7InbO-Cwsc=w2554-h1218)
 
-1. Access a Sqlite3 Database using ActiveRecord. 
-2. You should have a minimum of three models. 
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos. 
-4. Use good OO design patterns. You should have separate models for your runner and CLI interface.
- 
-## Instructions
+### View Results
+Next, type in a City and State. This will return the location's associated officials.
 
-1. Fork and clone this repository. 
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-6. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
+![location_entry_example](https://lh6.googleusercontent.com/15Plq24R4-1zAaNdfUjLhSpESs9GwvRDM0lB0nA_pGGcTHxxzOyfFDAt-zySvzdhvGAJvlaR1gBJocI=w2554-h1218)
+
+![example_list_officials](https://lh4.googleusercontent.com/OXSO8dys9EB_kXml68kG_2HkvTPIigw9w-CufYDAQZJVHy2PGL9coxf9PP_14DhVKgJOzEqaRr1QUJg=w2554-h1218)
+
+From that list select the number of one of the Official's to get more specific information:
+
+![specifice_offical_example](https://lh6.googleusercontent.com/URdhIc_sLleWHoO7NmsGSWxY9FBAg-Glofz0O0s_ldB4ers6VRPp_7LYn0W7oo38C7WlLpkXOMgV_Rc=w2554-h1218)
+
+Finally, you can either choose to find out more about your queried locaiton's other Officials, search a new locaiton, or view some interesting facts about the US and/or the Google Civic API.  :)
+
+![choice_menu](https://lh3.googleusercontent.com/CKv5kK4AgSSIjyBPUftfDnGYm0q6hzN0-K-_Ysrq_wjf4EU3e45Q1iEreGheaFFCsDbD6HYuCbtjVwE=w2554-h1218)
+
+For example:
+
+![sheriff_example](https://lh5.googleusercontent.com/Z8-8NUq9RL6XRezA_kdN7aLfEdMRLViCrdiOEpV_ttZxjUWPKlzoXa1CXHDaxrGLUFjj5Vx0Jbk7dJs=w2554-h1218)
+
+## User Walkthrough
+
+[![REPS are AWESOME](http://i.imgur.com/Ot5DWAW.png)](https://www.youtube.com/watch?v=uakqYjdI6S0 "Representatives are AWESOME")
