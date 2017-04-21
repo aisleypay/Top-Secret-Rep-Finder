@@ -23,8 +23,6 @@ Next, type in a City and State. This will return the location's associated offic
 
 ![location_entry_example](http://i.imgur.com/4wjGhjh.png)
 
-![example_list_officials](http://i.imgur.com/TSWlLel.png)
-
 From that list select the number of one of the Official's to get more specific information:
 
 ![specifice_offical_example](http://i.imgur.com/alrhi2sg.png)
