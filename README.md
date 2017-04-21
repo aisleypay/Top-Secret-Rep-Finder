@@ -24,7 +24,7 @@ Next, type in a City and State. This will return the location's associated offic
 
 ![location_entry_example](/Users/flatironschool/projects/Top-Secret-Rep-Finder/images/Screen Shot 2017-04-21 at 11.30.14 AM.png)
 
-![example_list_officials](/Users/flatironschool/projects/Top-Secret-Rep-Finder/images/Screen Shot 2017-04-21 at 2.08.11 PM.png)
+![example_list_officials](http://i.imgur.com/TSWlLel.png)
 
 From that list select the number of one of the Official's to get more specific information:
 
