@@ -24,7 +24,7 @@ Next, type in a City and State. This will return the location's associated offic
 
 ![location_entry_example](https://lh6.googleusercontent.com/15Plq24R4-1zAaNdfUjLhSpESs9GwvRDM0lB0nA_pGGcTHxxzOyfFDAt-zySvzdhvGAJvlaR1gBJocI=w2554-h1218)
 
-![example_list_officials](https://lh4.googleusercontent.com/OXSO8dys9EB_kXml68kG_2HkvTPIigw9w-CufYDAQZJVHy2PGL9coxf9PP_14DhVKgJOzEqaRr1QUJg=w2554-h1218)
+![example_list_officials](http://i.imgur.com/TSWlLel.png)
 
 From that list select the number of one of the Official's to get more specific information:
 
